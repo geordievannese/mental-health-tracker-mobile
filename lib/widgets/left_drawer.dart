@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mental_health_tracker/screens/menu.dart';
 import 'package:mental_health_tracker/screens/moodentry_form.dart';
+import 'package:mental_health_tracker/screens/list_moodentry.dart';
+// TODO: Import MoodEntryFormPage if it has already been created
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -9,14 +11,12 @@ class LeftDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
             ),
             child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'Mental Health Tracker',
@@ -27,9 +27,10 @@ class LeftDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(height: 8),
+                Padding(padding: EdgeInsets.all(8)),
                 Text(
                   "Track your mental health every day here!",
+                  // TODO: Add text style with center alignment, font size 15, white color, and normal weight
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 15,
@@ -40,9 +41,11 @@ class LeftDrawer extends StatelessWidget {
               ],
             ),
           ),
+          // Routing section
           ListTile(
             leading: const Icon(Icons.home_outlined),
             title: const Text('Home Page'),
+            // Redirection part to MyHomePage
             onTap: () {
               Navigator.pushReplacement(
                 context,
@@ -53,18 +56,29 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.add),
+            leading: const Icon(Icons.mood),
             title: const Text('Add Mood'),
+            // Redirection part to MoodEntryFormPage
             onTap: () {
-              Navigator.pop(context); // Close the drawer
-              Navigator.push(
+               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const MoodEntryFormPage(),
+                  builder: (context) => MoodEntryFormPage(),
                 ),
               );
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.add_reaction_rounded),
+            title: const Text('Mood List'),
+            onTap: () {
+                // Route to the mood page
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MoodEntryPage()),
+                );
+            },
+        ),
         ],
       ),
     );
